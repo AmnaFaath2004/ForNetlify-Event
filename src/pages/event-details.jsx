@@ -1,43 +1,70 @@
 import { Button, Card, Col, Container, Row } from "react-bootstrap"
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
+import { addCartItem } from "../Redux/productSlice";
 
-function EventDetails({events,cart,setCart}){
-    const {id}=useParams()
+function EventDetails({ cart, setCart }) {
 
-    const singleEvent=events.find(
-        (ev)=>ev.id===Number(id)
+    const { products } = useSelector((state) => state.productState)
+    const { id } = useParams()
+    console.log("id---------->", id);
+    console.log("products---------->", products);
+
+
+    const dispatch = useDispatch()
+    
+    const singleProduct = products.find(
+        (ev) => ev.id === Number(id)
     );
+    console.log("singleProduct------>", singleProduct);
 
-    const handAddCart =()=>{
-        setCart(cart+1)
+
+    
+
+    const handAddCart = () => {
+        // setCart(cart + 1)
+        dispatch(addCartItem(singleProduct))
     }
-    return(
+
+
+    return (
         <>
-          <Container className="mt-5">
-            <Card className="shadow p-4 border-0">
-                <Row>
-                    <Col md={5}>
-                    <Card.Img
-                    src={singleEvent?.image ?? null}
-                    style={{
-                        height:"400px",
-                        objectFit:"cover"
-                    }}
-                    />
-                    </Col>
+            <Container className="mt-5">
+                <Card className="shadow p-4 border-0">
+                    {singleProduct ? (<Row>
+                        <Col md={5}>
+                            <Card.Img
+                                src={singleProduct?.productPhoto ?? null}
+                                style={{
+                                    height: "400px",
+                                    objectFit: "cover"
+                                }}
+                            />
+                        </Col>
 
-                    <Col md={7}>
-                    <Card.Body>
-                        <h2>{singleEvent?.name ?? ""}</h2>
-                        <p>{singleEvent?.description ?? ""}</p>
-                        <h3>${singleEvent?.price ?? ""}</h3>
-                        <Button variant="dark" 
-                        onClick={handAddCart}>Add to Cart</Button>
-                        </Card.Body></Col>
-                </Row>
+                        <Col md={7}>
+                            <Card.Body>
+                                <h2>{singleProduct?.productName ?? ""}</h2>
+                                <p>{singleProduct?.productDescription ?? ""}</p>
+                                <h3>${singleProduct?.productPrice ?? ""}</h3>
+                                <Button
+                                    variant="dark"
+                                    onClick={() => handAddCart()}
+                                >
+                                    Add to Cart
+                                </Button>
+                            </Card.Body></Col>
+                    </Row>) : (
+                        <Row>
+                            <Col className="text-center">
+                                <h4>
+                                    Product not found</h4></Col>
+                        </Row>
+                    )}
 
-            </Card>
-          </Container>
+
+                </Card>
+            </Container>
         </>
     )
 }

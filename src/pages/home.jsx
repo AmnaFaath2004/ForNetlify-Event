@@ -1,11 +1,11 @@
 import Caro from "../components/caro"
 import Events from "./events"
 
-function Home({events}){
-    return(
+function Home({ events }) {
+    return (
         <>
-        <Caro/>
-        <Events events={events}/>
+            <Caro />
+            <Events  />
         </>
     )
 }

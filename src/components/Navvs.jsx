@@ -4,26 +4,76 @@ import Navbar from 'react-bootstrap/Navbar';
 import { BsBagHeart } from 'react-icons/bs';
 import "./Navvs.css"
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { FaRegUser } from 'react-icons/fa';
+import { toast } from 'react-toastify';
+import { NavDropdown } from 'react-bootstrap';
+import { userLogout } from '../Redux/useSlice';
 
 
-function Naavs({cart}){
-    return(
-        <>
-        <Navbar expand="lg"  data-bs-theme="dark" style={{background:"#1f2937"}}>
+
+function Naavs() {
+
+  const {cartItems} = useSelector((state)=>state.productState);
+
+  const dispatch = useDispatch()
+
+  const { isAuthenticated,user } = useSelector(
+    (state) => state.userState
+  );
+  console.log("isAuthenticated------->", isAuthenticated,  user?.fullname
+);
+
+  const handleLogout = () => {
+    toast.success("user Logged out")
+    dispatch(userLogout())
+  }
+
+  return (
+    <>
+      <Navbar expand="lg" data-bs-theme="dark" style={{ background: "#1f2937" }}>
         <Container>
           <Navbar.Brand href="#home">RoyalVenue Management</Navbar.Brand>
           <Nav className="ms-auto">
             <Nav.Link as={Link} to='/'>Home</Nav.Link>
             <Nav.Link href="#home">About</Nav.Link>
             <Nav.Link as={Link} to='/events'>Service</Nav.Link>
-            <Nav.Link as={Link} to='/Booking' className="position-relative">Booking  <BsBagHeart  size={22}/>
-            <span className='booking'>{cart}</span>
+            {!isAuthenticated && (
+              <Nav.Link as={Link} to='/login'>Login</Nav.Link>
+            )}
+
+            <Nav.Link as={Link} to='/cart' className="position-relative">Booking  <BsBagHeart size={22} />
+              <span className='booking'>
+                {cartItems.length}
+                </span>
+
+
             </Nav.Link>
-            
+
+            {isAuthenticated && (<NavDropdown title={<FaRegUser />} id="basic-nav-dropdown">
+              <NavDropdown.Item href="#action/3.1">profile
+              </NavDropdown.Item>
+              <NavDropdown.Item as={Link} to={"/admin/list-products"}>
+                List Product
+              </NavDropdown.Item>
+
+              <NavDropdown.Item  as={Link} to={'/admin/list-users'}>
+                List Users
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item onClick={handleLogout} >
+                <Link to={'/'}>
+                  Logout
+                </Link>
+              </NavDropdown.Item>
+            </NavDropdown>)}
+
+
+
           </Nav>
         </Container>
       </Navbar>
-        </>
-    )
+    </>
+  )
 }
 export default Naavs

@@ -1,60 +1,65 @@
 import { Col, Container, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 
-function Events({events}){
-    return(
-        <>
-        <Container className="mt-5">
-  <h1 className="text-center mb-5">Our Events</h1>
+function Events() {
 
-  <Row>
-    {events.map((services) => (
-      <Col
-        lg={4}
-        md={6}
-        sm={12}
-        className="mb-4"
-        key={services.id}
-      >
-        <Card
-          className="shadom h-100 border-0"
-          
-        >
-          <Card.Img
-            variant="top"
-            src={services.image}
-            height="250px"
-            style={{
-              objectFit: "cover"
-            }}
-          />
+  const {products} = useSelector((state)=>state.productState)
+  
+  
+  return (
+    <>
+      <Container className="mt-5">
+        <h1 className="text-center mb-5">Our Events</h1>
 
-          <Card.Body>
-            <Card.Title>{services.name}</Card.Title>
+        <Row>
+          {products.map((product) => (
+            <Col
+              lg={4}
+              md={6}
+              sm={12}
+              className="mb-4"
+              key={product.id}
+            >
+              <Card
+                className="shadom h-100 border-0"
 
-            <Card.Text>
-              {services.description}
-            </Card.Text>
+              >
+                <Card.Img
+                  variant="top"
+                  src={product.productPhoto}
+                  height="250px"
+                  style={{
+                    objectFit: "cover"
+                  }}
+                />
 
-            <h5>${services.price}</h5>
+                <Card.Body>
+                  <Card.Title>{product.productName}</Card.Title>
 
-            <Link to={`/Event-Details/${services.id}`}>
-              <Button variant="dark">
-                View Service
-              </Button>
-            </Link>
-          </Card.Body>
-        </Card>
-      </Col>
-    ))}
-  </Row>
-</Container>
-        
-        </>
-    )
+                  <Card.Text>
+                    {product.productDescription}
+                  </Card.Text>
+
+                  <h5>${product.productPrice}</h5>
+
+                  <Link to={`/Event-Details/${product.id}`}>
+                    <Button variant="dark">
+                      View Service
+                    </Button>
+                  </Link>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </Container>
+
+    </>
+  )
 }
 export default Events
 
