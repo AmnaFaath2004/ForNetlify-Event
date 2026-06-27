@@ -37,7 +37,7 @@ function Naavs() {
           <Nav className="ms-auto">
             <Nav.Link as={Link} to='/'>Home</Nav.Link>
             <Nav.Link href="#home">About</Nav.Link>
-            <Nav.Link as={Link} to='/events'>Products</Nav.Link>
+            <Nav.Link as={Link} to='/events'>Services</Nav.Link>
             {!isAuthenticated && (
               <Nav.Link as={Link} to='/login'>Login</Nav.Link>
             )}
@@ -51,8 +51,7 @@ function Naavs() {
             </Nav.Link>
 
             {isAuthenticated && (<NavDropdown title={<FaRegUser />} id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">profile
-              </NavDropdown.Item>
+              
               <NavDropdown.Item as={Link} to={"/admin/list-products"}>
                 List Product
               </NavDropdown.Item>
