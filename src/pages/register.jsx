@@ -26,7 +26,11 @@ function Register() {
 
     const handleRegister = (values) => {
         values.id = Date.now();
-        values.role = "user";
+        if (users.length === 0) {
+            values.role = "admin";   // First user becomes admin
+        } else {
+            values.role = "user";
+        }
         values.status = true;
         console.log("values----->", values);
 

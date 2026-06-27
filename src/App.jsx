@@ -115,7 +115,7 @@ function App() {
 
                     <Route path='/admin/edit-product/:id' element={<EditProduct />} />
 
-                    <Route path='/admin/list-users' element={<ProtectedRoute  >
+                    <Route path='/admin/list-users' element={<ProtectedRoute requiredRole={["admin"]} >
                         <ListUsers />
                     </ProtectedRoute>} />
 
