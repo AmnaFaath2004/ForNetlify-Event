@@ -45,7 +45,7 @@ function EventDetails({ cart, setCart }) {
                         <Col md={7}>
                             <Card.Body>
                                 <h2>{singleProduct?.productName ?? ""}</h2>
-                                <p>{singleProduct?.productDiscription ?? ""}</p>
+                                <h2>{singleProduct?.productDiscription ?? ""}</h2>
                                 <h3>${singleProduct?.productPrice ?? ""}</h3>
                                 <Button
                                     variant="dark"
