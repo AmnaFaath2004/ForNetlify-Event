@@ -13,7 +13,7 @@ function Events() {
   return (
     <>
       <Container className="mt-5">
-        <h1 className="text-center mb-5">Our Events</h1>
+        <h1 className="text-center mb-5">Our Products</h1>
 
         <Row>
           {products.map((product) => (

@@ -3,7 +3,7 @@ import { CiEdit } from "react-icons/ci"
 import { MdDelete } from "react-icons/md"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import "./Cart.css"
+
 import { cartItemQuantityDecrement, cartItemQuantityIncrement, deleteCartItem } from "../Redux/productSlice"
 import { toast } from "react-toastify"
 import { useState } from "react"
@@ -26,10 +26,10 @@ const Cart = () => {
         setDeleteCartIndex(null)
     }
 
-const totalPrice= cartItems?.reduce((total,item)=>{
-    total += item.quantity * item.productPrice;
-    return total
-},0)
+    const totalPrice = cartItems?.reduce((total, item) => {
+        total += item.quantity * item.productPrice;
+        return total
+    }, 0)
 
 
 
@@ -43,7 +43,7 @@ const totalPrice= cartItems?.reduce((total,item)=>{
     }
 
 
-    
+
     return (
         <Container>
             <Row>
@@ -84,7 +84,7 @@ const totalPrice= cartItems?.reduce((total,item)=>{
                                     <td>{item?.productPrice}</td>
                                     {/* <td>{item?.productDiscription} </td> */}
 
-                                    <td className="quantity-col">
+                                    <td >
                                         <InputGroup className="mb-3">
                                             <Button onClick={() =>
                                                 handleItemDecreament(item.id)}
@@ -97,8 +97,15 @@ const totalPrice= cartItems?.reduce((total,item)=>{
                                                 aria-describedby="basic-addon1"
                                                 value={item.quantity}
                                                 readOnly
+                                                style={{
+                                                    flex: "none",
+                                                    width: "50px"
+                                                }}
                                             />
-                                            <Button onClick={() => handleItemIncreament(item.id)} variant="outline-success" id="button-addon1">
+                                            <Button onClick={() =>
+                                                 handleItemIncreament(item.id)} 
+                                                 variant="outline-success" 
+                                                 id="button-addon1">
                                                 +
                                             </Button>
                                         </InputGroup>
@@ -139,7 +146,7 @@ const totalPrice= cartItems?.reduce((total,item)=>{
             </Modal>
 
 
-        </Container>
+        </Container >
     )
 }
 export default Cart

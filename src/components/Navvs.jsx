@@ -37,7 +37,7 @@ function Naavs() {
           <Nav className="ms-auto">
             <Nav.Link as={Link} to='/'>Home</Nav.Link>
             <Nav.Link href="#home">About</Nav.Link>
-            <Nav.Link as={Link} to='/events'>Service</Nav.Link>
+            <Nav.Link as={Link} to='/events'>Products</Nav.Link>
             {!isAuthenticated && (
               <Nav.Link as={Link} to='/login'>Login</Nav.Link>
             )}

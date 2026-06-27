@@ -8,8 +8,11 @@ import { Link } from "react-router-dom";
 import { CiEdit } from "react-icons/ci";
 
 const ListUsers = () => {
-    const [show, setShow] = useState(false);
     const { users } = useSelector((state) => state.userState);
+
+    
+    const [show, setShow] = useState(false);
+    
     const [deleteUserIndex, setDeleteUserIndex] = useState(null)
     const handleShow = (usersId) => {
         setShow(true)
@@ -71,7 +74,11 @@ const ListUsers = () => {
                                         />
                                         </td>
                                         <td>
-                                            <Form.Select onChange={(event) => handleUserRoleChange({ id: user.id, role: event.target.value })} defaultValue={user?.role} aria-label="Default select example" style={{ height: "53px", }}>
+                                            <Form.Select onChange={(event) =>
+                                                 handleUserRoleChange({ id: user.id, role: event.target.value })}
+                                                  defaultValue={user?.role} 
+                                                  aria-label="Default select example" 
+                                                  style={{ height: "53px", }}>
 
                                                 <option value="admin">Admin</option>
                                                 <option value="user">user</option>

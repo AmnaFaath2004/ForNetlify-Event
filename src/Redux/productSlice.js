@@ -22,6 +22,13 @@ const productSlice = createSlice({
                 state.products[productIndex] = action.payload;
                 localStorage.setItem("event", JSON.stringify(state.products));
             }
+            const cartItemIndex = state.cartItems.findIndex((pr) => pr.id === action.payload.id)
+            if (cartItemIndex !== -1) {
+                const cartIremQuantity = state.cartItems[cartItemIndex].quantity
+                state.cartItems[cartItemIndex] = { ...action.payload, quantity: cartIremQuantity }
+                localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+
+            }
 
         },
         deleteProduct: (state, action) => {
@@ -52,7 +59,7 @@ const productSlice = createSlice({
             }
 
         },
-                cartItemQuantityDecrement: (state, action) => {
+        cartItemQuantityDecrement: (state, action) => {
             const cartItemIndex = state.cartItems.findIndex((pr) => pr.id === action.payload)
             if (cartItemIndex !== -1) { //-1 : if not have that certain index(not matches)
                 state.cartItems[cartItemIndex].quantity--;
@@ -60,11 +67,11 @@ const productSlice = createSlice({
             }
 
         },
-         deleteCartItem : (state , action)=>{
-            const cartItem = state.cartItems.findIndex((h)=>h.id === action.payload)
-            if(cartItem !== -1){
-                state.cartItems.splice(cartItem,1);
-                localStorage.setItem("cartItems",JSON.stringify(state.cartItems))
+        deleteCartItem: (state, action) => {
+            const cartItem = state.cartItems.findIndex((h) => h.id === action.payload)
+            if (cartItem !== -1) {
+                state.cartItems.splice(cartItem, 1);
+                localStorage.setItem("cartItems", JSON.stringify(state.cartItems))
             }
         }
 
@@ -72,5 +79,5 @@ const productSlice = createSlice({
 
     }
 })
-export const { addProduct, editProduct, deleteProduct, addCartItem ,cartItemQuantityIncrement,cartItemQuantityDecrement,deleteCartItem} = productSlice.actions;
+export const { addProduct, editProduct, deleteProduct, addCartItem, cartItemQuantityIncrement, cartItemQuantityDecrement, deleteCartItem } = productSlice.actions;
 export default productSlice.reducer
