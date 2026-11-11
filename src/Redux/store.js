@@ -5,7 +5,7 @@ import productReducer from './productSlice'
 const store = configureStore({
     reducer: {
         userState: userSlice,
-        productState: productReducer
+        productState: productReducer,
 
     }
 });
